@@ -16,6 +16,7 @@ router.post("/register", async (req, res) => {
         let user = await User.findOne({ email });
 
         if (user) return res.status(400).json({ message: "User already exist" });
+        if (password.length < 6) return res.status(400).json({ message: "Enter a valid password of 6 or more characters" });
 
         user = new User({ name, email, password });
         await user.save();
@@ -58,10 +59,10 @@ router.post("/login", async (req, res) => {
     try {
         // Find user by email
         let user = await User.findOne({ email });
-        
+
         if (!user) return res.status(400).json({ message: "Invalid Credentials" });
         const isMatch = await user.matchPassword(password);
-        
+
         if (!isMatch) return res.status(400).json({ message: "Invalid Credentials" });
 
         // Create JWT Payload
@@ -91,7 +92,7 @@ router.post("/login", async (req, res) => {
         console.error(error);
         res.status(500).send("Server Error");
     }
- });
+});
 
 // @route GET /api/users/profile
 // @desc Get Logged in user's profile (protected route)
