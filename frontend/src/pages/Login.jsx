@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 import login from "../assets/login.webp";
 import { mergeCart } from "../redux/slices/cartSlice";
@@ -12,7 +13,7 @@ function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const { user, guestId, loading } = useSelector((state) => state.auth);
+    const { user, guestId, loading, error } = useSelector((state) => state.auth);
     const { cart } = useSelector((state) => state.cart);
 
     // Get redirect parameter and check if checkout or something else
@@ -32,6 +33,15 @@ function Login() {
             }
         }
     }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
+
+    // Handle toast messages when login status changes
+    useEffect(() => {
+        if (error) {
+            toast.error(`Error when signing in: ${error}`, { duration: 2000 });
+        } else if (user) {
+            toast.success("Signing in successful", { duration: 2000 });
+        }
+    }, [error, user]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -67,12 +77,16 @@ function Login() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full p-2 border rounded"
-                            placeholder="Enter your email address"
+                            placeholder="Enter your password"
                         />
                     </div>
 
-                    <button type="submit" className="w-full bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition">
-                        {loading ? "loaging ..." : "Sign In"}
+                    <button
+                        type="submit"
+                        className="w-full bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition"
+                        disabled={loading}
+                    >
+                        {loading ? "loading ..." : "Sign In"}
                     </button>
                     <p className="mt-6 text-center text-sm">
                         Don't have an account?{" "}
