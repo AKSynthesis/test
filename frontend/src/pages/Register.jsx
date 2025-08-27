@@ -99,7 +99,7 @@ function Register() {
                         className="w-full bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition"
                         disabled={loading}
                     >
-                        {loading ? "loaging ..." : "Sign Up"}
+                        {loading ? "loading ..." : "Sign Up"}
                     </button>
                     <p className="mt-6 text-center text-sm">
                         Already have an account?{" "}
