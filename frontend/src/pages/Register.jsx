@@ -41,7 +41,7 @@ function Register() {
         if (error) {
             toast.error(`Error when signing up: ${error}`, { duration: 2000 });
         } else if (user) {
-            toast.success("Signing in successful up", { duration: 2000 });
+            toast.success("Signing up successful", { duration: 2000 });
         }
     }, [error, user]);
 
@@ -60,7 +60,7 @@ function Register() {
                     </div>
                     <h2 className="text-2xl font-bold text-center mb-6">Hey there! 👋</h2>
                     <p className="text-center mb-6">
-                        Enter your username and password to Login
+                        Enter your details to create an account
                     </p>
 
                     <div className="mb-4">
@@ -117,7 +117,7 @@ function Register() {
                 <div className="h-full flex flex-col justify-center items-center">
                     <img
                         src={register}
-                        alt="Login to Account"
+                        alt="Create Account"
                         className="h-[750px] w-full object-cover"
                     />
                 </div>
