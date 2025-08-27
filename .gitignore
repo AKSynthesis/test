@@ -1,0 +1,10 @@
+# Logs
+Logs*.Logs
+
+# Node modules
+frontend/node_modules
+backend/node_modules
+
+# Environement variables
+frontend/.env
+backend/.env
